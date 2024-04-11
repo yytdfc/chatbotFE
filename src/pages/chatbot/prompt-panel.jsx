@@ -29,10 +29,10 @@ import { params_local_storage_key } from "./common-components";
 const default_bucket = process.env.REACT_APP_DEFAULT_UPLOAD_BUCKET;
 export const defaultModelParams = {
   temperature: 0.01,
-  max_tokens: 3000,
+  max_tokens: 4096,
   model_name: models[0].value,
   model_name_opt: models[0],
-  use_qa: true,
+  use_qa: false,
   multi_rounds:false,
   // embedding_model_name: embeddings[0].value,
   // embedding_model_name_opt: embeddings[0],
@@ -228,63 +228,6 @@ const ExpandableSettingPanel = () => {
             inputMode="decimal"
           />
         </FormField>
-
-        <FormField label={t("system_role")}>
-          <Input
-            onChange={({ detail }) => {
-              setSystemRoleValue(detail.value);
-              setModelParams((prev) => ({
-                ...prev,
-                system_role: detail.value,
-              }));
-              setLocalStoredParams({
-                ...localStoredParams,
-                system_role: detail.value,
-              });
-            }}
-            value={systemRoleValue}
-          />
-        </FormField>
-        <FormField label={t("system_role_prompt")}>
-          <Input
-            onChange={({ detail }) => {
-              setSystemRolePromptValue(detail.value);
-              setModelParams((prev) => ({
-                ...prev,
-                system_role_prompt: detail.value,
-              }));
-              setLocalStoredParams({
-                ...localStoredParams,
-                system_role_prompt: detail.value,
-              });
-            }}
-            value={systemRolePromptValue}
-          />
-        </FormField>
-        <FormField label={t("prompt_template")}>
-          <Select
-            statusType={loadStatus}
-            onLoadItems={handleLoadItems}
-            selectedOption={selectTemplate}
-            onChange={({ detail }) => {
-              setSelectTemplate(detail.selectedOption);
-              setModelParams((prev) => ({
-                ...prev,
-                template_id: detail.selectedOption.value,
-              }));
-              setLocalStoredParams({
-                ...localStoredParams,
-                template_id: detail.selectedOption.value,
-                template_opt: detail.selectedOption,
-              });
-            }}
-            options={alldocs.map(({ template_name, id, username }) => ({
-              label: `${template_name}[${id}]`,
-              value: id,
-            }))}
-            selectedAriaLabel="Selected"
-          />
-        </FormField>
       </ColumnLayout>
     </ExpandableSection>
   );
@@ -388,7 +331,7 @@ const PromptPanel = ({ sendMessage }) => {
   }, []);
 
 
-  const [autoSuggest, setAutoSuggest] = useState(false);
+  const [autoSuggest, setAutoSuggest] = useState(true);
   const onSubmit = (values,imgUrl=null) => {
     setStopFlag(true);
     const prompt = values.trimEnd();
@@ -468,7 +411,6 @@ const PromptPanel = ({ sendMessage }) => {
           }
           
           <SpaceBetween size="xs" direction="horizontal">
-          <ImageUploadComp id={'chat'} />
             <Button
               variant="primary"
               loading={stopFlag&&!newChatLoading}
@@ -547,23 +489,6 @@ const PromptPanel = ({ sendMessage }) => {
             <FormField >
               <Toggle
                 onChange={({ detail }) => {
-                  setRefDocChecked(detail.checked);
-                  setHideRefDoc(detail.checked);
-                  setModelParams((prev) => ({
-                    ...prev,
-                    hide_ref: detail.checked,
-                  }));
-                  setLocalStoredParams({
-                    ...localStoredParams,
-                    hide_ref: detail.checked,
-                  });
-                }}
-                checked={hideRefchecked}
-              >{t("hide_ref_doc")}</Toggle>
-            </FormField>
-            <FormField >
-              <Toggle
-                onChange={({ detail }) => {
                   setUseTrace(detail.checked);
                   setModelParams((prev) => ({
                     ...prev,
@@ -576,22 +501,6 @@ const PromptPanel = ({ sendMessage }) => {
                 }}
                 checked={useTrace}
               >{t("use_trace")}</Toggle>
-            </FormField>
-            <FormField >
-              <Toggle
-                onChange={({ detail }) => {
-                  setEnableSearch(detail.checked);
-                  setModelParams((prev) => ({
-                    ...prev,
-                    feature_config: detail.checked?'default':'search_disabled',
-                  }));
-                  setLocalStoredParams({
-                    ...localStoredParams,
-                    enableSearch: detail.checked,
-                  });
-                }}
-                checked={enableSearch}
-              >{t("enable_search")}</Toggle>
             </FormField>
 
           </SpaceBetween>

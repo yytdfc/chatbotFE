@@ -1,2 +1,8 @@
-AWS clean rooms是什么？
-AWS MSK有什么优势？
+有多少closed lost的商机？请罗列所有closed lost的商机，并附上具体的原因
+Can you summarize the reason why opportunity are "Closed Lost", and provide the evidence.
+请按照如下形式给出分析结果：我们的目标是到4月26日完成880个TV+的商机，目前GCR 的TV+商机为XX， 完成率为XX%；整体商机集中在Prospect阶段为XX%，Qualified阶段为XX%。
+Sales Area包含，Cluster 1 Total，Cluster 2 Total，Cluster 3 Total，CROSS，FSI DNB，GB，HKT，STRATEGIC，共8个Sales Area。TV+完成率=TV+个数/Total 商机总个数。列举TV+完成率最低的三个Sales Area。
+请按照如下形式给出分析结果：从sales area level分析，TV+完成率最高的是XX，为XX%；TV+完成率最低的三个Sales Area分别是A（XX%）, B(XX%), C(XX%)。
+在TV+完成率最低的三个Sales Area中，Sales Area A，停留在prospect和qualified阶段的占比为XX%，其中停留在Prospect超过7天的有 XX（占整体Prospect Oppty的XX%）， 其中停留在qualified超过10天的有 XX（占整体Qualified Oppty的XX%XX%）；Sales Area B….Sales Area C…建议这些BU 尽快推动商机流转。
+What are the common use cases that were powered or enhanced by Claude3?
+Is there any use case trending for game group?

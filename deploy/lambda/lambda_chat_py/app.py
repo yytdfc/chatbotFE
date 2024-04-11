@@ -1,5 +1,6 @@
 import json,os
 import boto3
+from botocore.client import Config as BotoConfig
 import re
 # import openai
 import requests
@@ -149,7 +150,9 @@ def handler(event,lambda_context):
     user_id = params.get('username','')
     print(f"{user_id}\n{connectionId}\n{messages}\n{params}\n{msgid}")
 
-    lambda_client = boto3.client('lambda')
+    TIMEOUT = 300
+    config = BotoConfig(connect_timeout=TIMEOUT, read_timeout=TIMEOUT)
+    lambda_client = boto3.client('lambda', config=config)
     main_func = params.get('main_fun_arn') if params.get('main_fun_arn') else os.getenv('MAIN_FUN_ARN')
     openai_apikey = params.get('OPENAI_API_KEY') 
     # openai.api_key = openai_apikey if openai_apikey else os.getenv("OPENAI_API_KEY")
